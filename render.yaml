@@ -1,7 +1,7 @@
 services:
   - type: web
     name: discipline-tracker
-    runtime: php
+    runtime: php@8.2
     buildCommand: composer install --no-dev --optimize-autoloader
     startCommand: vendor/bin/heroku-php-apache2 public/
     envVars:
@@ -39,7 +39,7 @@ services:
 
   - type: worker
     name: discipline-tracker-worker
-    runtime: php
+    runtime: php@8.2
     buildCommand: composer install --no-dev --optimize-autoloader
     startCommand: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     envVars:
