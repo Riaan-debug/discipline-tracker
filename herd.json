@@ -1,0 +1,5 @@
+{
+    "name": "discipline-tracker",
+    "secure": true,
+    "php": "8.2"
+} 

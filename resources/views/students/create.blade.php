@@ -1,0 +1,159 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="max-w-2xl mx-auto">
+    <!-- Header -->
+    <div class="mb-6">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-gray-900">Add New Student</h1>
+            <a href="{{ route('students.index') }}" 
+               class="text-gray-600 hover:text-gray-900">
+                ← Back to Students
+            </a>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="bg-white shadow sm:rounded-lg">
+        <form action="{{ route('students.store') }}" method="POST" class="p-6">
+            @csrf
+
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <!-- First Name -->
+                <div>
+                    <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                    <input type="text" 
+                           name="first_name" 
+                           id="first_name" 
+                           value="{{ old('first_name') }}"
+                           placeholder="Enter student's first name"
+                           class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('first_name') border-red-300 @enderror"
+                           required>
+                    @error('first_name')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Last Name -->
+                <div>
+                    <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                    <input type="text" 
+                           name="last_name" 
+                           id="last_name" 
+                           value="{{ old('last_name') }}"
+                           placeholder="Enter student's last name"
+                           class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('last_name') border-red-300 @enderror"
+                           required>
+                    @error('last_name')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email (Optional)</label>
+                    <input type="email" 
+                           name="email" 
+                           id="email" 
+                           value="{{ old('email') }}"
+                           placeholder="student@example.com"
+                           class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('email') border-red-300 @enderror">
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Grade -->
+                <div>
+                    <label for="grade" class="block text-sm font-medium text-gray-700">Grade</label>
+                    <select name="grade" 
+                            id="grade" 
+                            class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('grade') border-red-300 @enderror"
+                            required>
+                        <option value="">Select Grade</option>
+                        <option value="RR" {{ old('grade') == 'RR' ? 'selected' : '' }}>Grade RR</option>
+                        <option value="R" {{ old('grade') == 'R' ? 'selected' : '' }}>Grade R</option>
+                        @for($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ old('grade') == (string)$i ? 'selected' : '' }}>
+                                Grade {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                    @error('grade')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Parent Name -->
+                <div>
+                    <label for="parent_name" class="block text-sm font-medium text-gray-700">Parent/Guardian Name</label>
+                    <input type="text" 
+                           name="parent_name" 
+                           id="parent_name" 
+                           value="{{ old('parent_name') }}"
+                           placeholder="Enter parent/guardian name"
+                           class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('parent_name') border-red-300 @enderror"
+                           required>
+                    @error('parent_name')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Parent Email -->
+                <div>
+                    <label for="parent_email" class="block text-sm font-medium text-gray-700">Parent/Guardian Email</label>
+                    <input type="email" 
+                           name="parent_email" 
+                           id="parent_email" 
+                           value="{{ old('parent_email') }}"
+                           placeholder="parent@example.com"
+                           class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('parent_email') border-red-300 @enderror"
+                           required>
+                    @error('parent_email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Parent Phone -->
+                <div>
+                    <label for="parent_phone" class="block text-sm font-medium text-gray-700">Parent/Guardian Phone (Optional)</label>
+                    <input type="tel" 
+                           name="parent_phone" 
+                           id="parent_phone" 
+                           value="{{ old('parent_phone') }}"
+                           placeholder="+27 82 123 4567"
+                           class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('parent_phone') border-red-300 @enderror">
+                    @error('parent_phone')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="mt-6">
+                <label for="notes" class="block text-sm font-medium text-gray-700">Notes (Optional)</label>
+                <textarea name="notes" 
+                          id="notes" 
+                          rows="3"
+                          class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('notes') border-red-300 @enderror"
+                          placeholder="Any additional notes about the student...">{{ old('notes') }}</textarea>
+                @error('notes')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-6 flex items-center justify-end space-x-3">
+                <a href="{{ route('students.index') }}" 
+                   class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancel
+                </a>
+                <button type="submit" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Create Student
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection 

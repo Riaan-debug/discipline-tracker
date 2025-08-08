@@ -1,0 +1,48 @@
+{
+    "name": "Discipline Tracker",
+    "description": "A discipline management system for schools",
+    "repository": "https://github.com/yourusername/discipline-tracker",
+    "logo": "https://node-js-sample.herokuapp.com/node.png",
+    "keywords": ["laravel", "php", "discipline", "school"],
+    "addons": [
+        "heroku-postgresql:mini"
+    ],
+    "buildpacks": [
+        {
+            "url": "heroku/php"
+        }
+    ],
+    "env": {
+        "APP_ENV": {
+            "value": "production"
+        },
+        "APP_DEBUG": {
+            "value": "false"
+        },
+        "APP_KEY": {
+            "generator": "secret"
+        },
+        "QUEUE_CONNECTION": {
+            "value": "database"
+        },
+        "SESSION_DRIVER": {
+            "value": "database"
+        },
+        "CACHE_DRIVER": {
+            "value": "database"
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "basic"
+        },
+        "worker": {
+            "quantity": 1,
+            "size": "basic"
+        }
+    },
+    "scripts": {
+        "postdeploy": "php artisan migrate --force && php artisan db:seed --force"
+    }
+}
