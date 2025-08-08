@@ -11,8 +11,6 @@ services:
         value: false
       - key: APP_KEY
         generateValue: true
-      - key: APP_URL
-        value: https://discipline-tracker.onrender.com
       - key: DB_CONNECTION
         value: postgresql
       - key: QUEUE_CONNECTION
@@ -38,7 +36,6 @@ services:
       - key: MAIL_FROM_NAME
         value: "School Discipline Tracker"
     healthCheckPath: /
-    autoDeploy: true
 
   - type: worker
     name: discipline-tracker-worker
