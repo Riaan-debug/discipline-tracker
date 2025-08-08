@@ -1,48 +1,90 @@
 {
-    "name": "Discipline Tracker",
-    "description": "A discipline management system for schools",
-    "repository": "https://github.com/yourusername/discipline-tracker",
-    "logo": "https://node-js-sample.herokuapp.com/node.png",
-    "keywords": ["laravel", "php", "discipline", "school"],
-    "addons": [
-        "heroku-postgresql:mini"
-    ],
-    "buildpacks": [
-        {
-            "url": "heroku/php"
-        }
-    ],
-    "env": {
-        "APP_ENV": {
-            "value": "production"
-        },
-        "APP_DEBUG": {
-            "value": "false"
-        },
-        "APP_KEY": {
-            "generator": "secret"
-        },
-        "QUEUE_CONNECTION": {
-            "value": "database"
-        },
-        "SESSION_DRIVER": {
-            "value": "database"
-        },
-        "CACHE_DRIVER": {
-            "value": "database"
-        }
+  "name": "discipline-tracker",
+  "description": "School Discipline Tracking System",
+  "repository": "https://github.com/Riaan-debug/discipline-tracker",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["laravel", "php", "school", "discipline"],
+  "addons": [
+    "heroku-postgresql:mini"
+  ],
+  "env": {
+    "APP_ENV": {
+      "description": "Application environment",
+      "value": "production"
     },
-    "formation": {
-        "web": {
-            "quantity": 1,
-            "size": "basic"
-        },
-        "worker": {
-            "quantity": 1,
-            "size": "basic"
-        }
+    "APP_DEBUG": {
+      "description": "Debug mode",
+      "value": "false"
     },
-    "scripts": {
-        "postdeploy": "php artisan migrate --force && php artisan db:seed --force"
+    "APP_KEY": {
+      "description": "Laravel application key",
+      "generator": "secret"
+    },
+    "DB_CONNECTION": {
+      "description": "Database connection",
+      "value": "pgsql"
+    },
+    "QUEUE_CONNECTION": {
+      "description": "Queue connection",
+      "value": "database"
+    },
+    "CACHE_DRIVER": {
+      "description": "Cache driver",
+      "value": "file"
+    },
+    "SESSION_DRIVER": {
+      "description": "Session driver",
+      "value": "file"
+    },
+    "SESSION_LIFETIME": {
+      "description": "Session lifetime",
+      "value": "120"
+    },
+    "LOG_CHANNEL": {
+      "description": "Log channel",
+      "value": "stack"
+    },
+    "MAIL_MAILER": {
+      "description": "Mail driver",
+      "value": "smtp"
+    },
+    "MAIL_HOST": {
+      "description": "SMTP host",
+      "value": "smtp.gmail.com"
+    },
+    "MAIL_PORT": {
+      "description": "SMTP port",
+      "value": "587"
+    },
+    "MAIL_ENCRYPTION": {
+      "description": "SMTP encryption",
+      "value": "tls"
+    },
+    "MAIL_FROM_ADDRESS": {
+      "description": "From email address",
+      "value": "noreply@school.edu"
+    },
+    "MAIL_FROM_NAME": {
+      "description": "From name",
+      "value": "School Discipline Tracker"
     }
+  },
+  "scripts": {
+    "postdeploy": "php artisan migrate --force && php artisan db:seed --class=ProductionSeeder --force"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ]
 }
