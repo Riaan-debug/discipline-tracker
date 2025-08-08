@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/index.php",
+      "use": "@vercel/php"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.php"
+    }
+  ],
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "DB_CONNECTION": "pgsql",
+    "QUEUE_CONNECTION": "database",
+    "CACHE_DRIVER": "file",
+    "SESSION_DRIVER": "file",
+    "SESSION_LIFETIME": "120",
+    "LOG_CHANNEL": "stack",
+    "MAIL_MAILER": "smtp",
+    "MAIL_HOST": "smtp.gmail.com",
+    "MAIL_PORT": "587",
+    "MAIL_ENCRYPTION": "tls",
+    "MAIL_FROM_ADDRESS": "noreply@school.edu",
+    "MAIL_FROM_NAME": "School Discipline Tracker"
+  }
+}
