@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 py-8">
-    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
-            <div class="flex items-center justify-between">
+            <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Add User</h1>
-                    <p class="mt-2 text-gray-600">Create a new staff account</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Add New User</h1>
+                    <p class="mt-2 text-gray-600">Create a new user account for school staff</p>
                 </div>
                 <a href="{{ route('users.index') }}" 
                    class="text-blue-600 hover:text-blue-900 font-medium">
@@ -27,11 +27,19 @@
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                         Full Name *
                     </label>
+                    @php
+                        $nameClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('name')) {
+                            $nameClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $nameClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <input type="text" 
                            id="name" 
                            name="name" 
                            value="{{ old('name') }}"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                           class="{{ $nameClasses }}"
                            placeholder="e.g., John Smith"
                            required>
                     @error('name')
@@ -44,11 +52,19 @@
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                         Email Address *
                     </label>
+                    @php
+                        $emailClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('email')) {
+                            $emailClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $emailClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <input type="email" 
                            id="email" 
                            name="email" 
                            value="{{ old('email') }}"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('email') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                           class="{{ $emailClasses }}"
                            placeholder="e.g., john.smith@school.edu"
                            required>
                     @error('email')
@@ -61,10 +77,18 @@
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                         Password *
                     </label>
+                    @php
+                        $passwordClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('password')) {
+                            $passwordClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $passwordClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <input type="password" 
                            id="password" 
                            name="password" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                           class="{{ $passwordClasses }}"
                            placeholder="Minimum 8 characters"
                            required>
                     @error('password')
@@ -90,9 +114,17 @@
                     <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
                         Role *
                     </label>
+                    @php
+                        $roleClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('role')) {
+                            $roleClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $roleClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <select id="role" 
                             name="role"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('role') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                            class="{{ $roleClasses }}"
                             required>
                         <option value="">Select a role</option>
                         <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator</option>
@@ -116,16 +148,39 @@
                     <label for="department" class="block text-sm font-medium text-gray-700 mb-2">
                         Department *
                     </label>
+                    @php
+                        $departmentClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('department')) {
+                            $departmentClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $departmentClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <input type="text" 
                            id="department" 
                            name="department" 
                            value="{{ old('department') }}"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('department') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                           class="{{ $departmentClasses }}"
                            placeholder="e.g., Mathematics, Administration, Guidance"
                            required>
                     @error('department')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <!-- Active Status -->
+                <div class="mb-6">
+                    <div class="flex items-center">
+                        <input type="checkbox" 
+                               id="is_active" 
+                               name="is_active" 
+                               value="1"
+                               {{ old('is_active', true) ? 'checked' : '' }}
+                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="is_active" class="ml-2 block text-sm text-gray-700">
+                            Active (user can log in and access the system)
+                        </label>
+                    </div>
                 </div>
 
                 <!-- Submit Buttons -->

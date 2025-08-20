@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8">
+<div class="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
-            <div class="flex items-center justify-between">
+            <div class="flex justify-between items-center">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900 code-font">🌟 Add Positive Report</h1>
                     <p class="mt-2 text-gray-600">Celebrate student achievements and good behavior</p>
@@ -26,9 +26,17 @@
                     <!-- Student Selection -->
                     <div>
                         <label for="student_id" class="block text-sm font-medium text-gray-700">Student</label>
+                        @php
+                            $studentClasses = 'mt-1 block w-full border-2 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200';
+                            if ($errors->has('student_id')) {
+                                $studentClasses .= ' border-red-300';
+                            } else {
+                                $studentClasses .= ' border-gray-200';
+                            }
+                        @endphp
                         <select name="student_id" 
                                 id="student_id" 
-                                class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('student_id') border-red-300 @enderror"
+                                class="{{ $studentClasses }}"
                                 required>
                             <option value="">Select a student</option>
                             @foreach($students as $student)
@@ -46,9 +54,17 @@
                     <!-- Positive Report Type -->
                     <div>
                         <label for="positive_report_type_id" class="block text-sm font-medium text-gray-700">Achievement Type</label>
+                        @php
+                            $typeClasses = 'mt-1 block w-full border-2 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200';
+                            if ($errors->has('positive_report_type_id')) {
+                                $typeClasses .= ' border-red-300';
+                            } else {
+                                $typeClasses .= ' border-gray-200';
+                            }
+                        @endphp
                         <select name="positive_report_type_id" 
                                 id="positive_report_type_id" 
-                                class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('positive_report_type_id') border-red-300 @enderror"
+                                class="{{ $typeClasses }}"
                                 required>
                             <option value="">Select achievement type</option>
                             @foreach($positiveReportTypes as $type)
@@ -66,10 +82,18 @@
                 <!-- Description -->
                 <div class="mt-6">
                     <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                    @php
+                        $descriptionClasses = 'mt-1 block w-full border-2 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200';
+                        if ($errors->has('description')) {
+                            $descriptionClasses .= ' border-red-300';
+                        } else {
+                            $descriptionClasses .= ' border-gray-200';
+                        }
+                    @endphp
                     <textarea name="description" 
                               id="description" 
                               rows="4"
-                              class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('description') border-red-300 @enderror"
+                              class="{{ $descriptionClasses }}"
                               placeholder="Describe the student's achievement or positive behavior in detail..."
                               required>{{ old('description') }}</textarea>
                     <p class="mt-1 text-sm text-gray-500">Minimum 10 characters required.</p>
@@ -81,10 +105,18 @@
                 <!-- Teacher Notes -->
                 <div class="mt-6">
                     <label for="teacher_notes" class="block text-sm font-medium text-gray-700">Additional Notes (Optional)</label>
+                    @php
+                        $notesClasses = 'mt-1 block w-full border-2 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200';
+                        if ($errors->has('teacher_notes')) {
+                            $notesClasses .= ' border-red-300';
+                        } else {
+                            $notesClasses .= ' border-gray-200';
+                        }
+                    @endphp
                     <textarea name="teacher_notes" 
                               id="teacher_notes" 
                               rows="3"
-                              class="mt-1 block w-full border-2 border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm bg-white hover:border-gray-300 transition-colors duration-200 @error('teacher_notes') border-red-300 @enderror"
+                              class="{{ $notesClasses }}"
                               placeholder="Additional context, follow-up actions, or recognition details...">{{ old('teacher_notes') }}</textarea>
                     @error('teacher_notes')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

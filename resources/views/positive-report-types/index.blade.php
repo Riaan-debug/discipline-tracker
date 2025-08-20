@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Positive Report Types</h1>
-                    <p class="mt-2 text-gray-600">Manage the types of positive achievements that can be reported</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Achievement Types</h1>
+                    <p class="mt-2 text-gray-600">Manage different types of achievements that can be reported</p>
                 </div>
                 <a href="{{ route('positive-report-types.create') }}" 
-                   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                   class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
                     Add Achievement Type
                 </a>
             </div>
@@ -68,8 +68,10 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                        @if($positiveReportType->is_active) bg-green-100 text-green-800 @else bg-red-100 text-red-800 @endif">
+                                    @php
+                                        $statusClass = $positiveReportType->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                                    @endphp
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $statusClass }}">
                                         {{ $positiveReportType->is_active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>

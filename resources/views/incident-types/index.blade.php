@@ -8,10 +8,10 @@
             <div class="flex justify-between items-center">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">Incident Types</h1>
-                    <p class="mt-2 text-gray-600">Manage the types of incidents that can be reported</p>
+                    <p class="mt-2 text-gray-600">Manage different types of incidents that can be reported</p>
                 </div>
                 <a href="{{ route('incident-types.create') }}" 
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     Add Incident Type
                 </a>
             </div>
@@ -66,12 +66,16 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($incidentType->severity)
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                            @if($incidentType->severity === 'critical') bg-red-100 text-red-800
-                                            @elseif($incidentType->severity === 'major') bg-orange-100 text-orange-800
-                                            @elseif($incidentType->severity === 'moderate') bg-yellow-100 text-yellow-800
-                                            @else bg-green-100 text-green-800
-                                            @endif">
+                                        @php
+                                            $severityClasses = [
+                                                'critical' => 'bg-red-100 text-red-800',
+                                                'major' => 'bg-orange-100 text-orange-800',
+                                                'moderate' => 'bg-yellow-100 text-yellow-800',
+                                                'minor' => 'bg-green-100 text-green-800'
+                                            ];
+                                            $severityClass = $severityClasses[$incidentType->severity] ?? 'bg-gray-100 text-gray-800';
+                                        @endphp
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $severityClass }}">
                                             {{ ucfirst($incidentType->severity) }}
                                         </span>
                                     @else
@@ -79,8 +83,10 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                        @if($incidentType->is_active) bg-green-100 text-green-800 @else bg-red-100 text-red-800 @endif">
+                                    @php
+                                        $statusClass = $incidentType->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                                    @endphp
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $statusClass }}">
                                         {{ $incidentType->is_active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>

@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 py-8">
-    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
-            <div class="flex items-center justify-between">
+            <div class="flex justify-between items-center">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">Add Incident Type</h1>
                     <p class="mt-2 text-gray-600">Create a new type of incident that can be reported</p>
@@ -27,11 +27,19 @@
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                         Incident Type Name *
                     </label>
+                    @php
+                        $nameClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('name')) {
+                            $nameClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $nameClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <input type="text" 
                            id="name" 
                            name="name" 
                            value="{{ old('name') }}"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                           class="{{ $nameClasses }}"
                            placeholder="e.g., Bullying, Fighting, Tardiness"
                            required>
                     @error('name')
@@ -44,10 +52,18 @@
                     <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
                         Description
                     </label>
+                    @php
+                        $descriptionClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('description')) {
+                            $descriptionClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $descriptionClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <textarea id="description" 
                               name="description" 
                               rows="3"
-                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                              class="{{ $descriptionClasses }}"
                               placeholder="Optional description of this incident type">{{ old('description') }}</textarea>
                     @error('description')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -59,9 +75,17 @@
                     <label for="severity" class="block text-sm font-medium text-gray-700 mb-2">
                         Default Severity Level
                     </label>
+                    @php
+                        $severityClasses = 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500';
+                        if ($errors->has('severity')) {
+                            $severityClasses .= ' border-red-300 focus:ring-red-500 focus:border-red-500';
+                        } else {
+                            $severityClasses .= ' border-gray-300';
+                        }
+                    @endphp
                     <select id="severity" 
                             name="severity"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('severity') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror">
+                            class="{{ $severityClasses }}">
                         <option value="">Select severity level (optional)</option>
                         <option value="minor" {{ old('severity') == 'minor' ? 'selected' : '' }}>Minor</option>
                         <option value="moderate" {{ old('severity') == 'moderate' ? 'selected' : '' }}>Moderate</option>

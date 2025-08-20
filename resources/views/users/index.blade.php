@@ -7,28 +7,15 @@
         <div class="mb-8">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">User Management</h1>
-                    <p class="mt-2 text-gray-600">Manage staff accounts and roles</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Users</h1>
+                    <p class="mt-2 text-gray-600">Manage school staff accounts and permissions</p>
                 </div>
                 <a href="{{ route('users.create') }}" 
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                    Add User
+                   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    Add New User
                 </a>
             </div>
         </div>
-
-        <!-- Success/Error Messages -->
-        @if(session('success'))
-            <div class="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                {{ session('error') }}
-            </div>
-        @endif
 
         <!-- Users Table -->
         <div class="bg-white shadow rounded-lg overflow-hidden">
@@ -71,12 +58,16 @@
                                     <div class="text-sm text-gray-900">{{ $user->email }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                        @if($user->role === 'admin') bg-red-100 text-red-800
-                                        @elseif($user->role === 'principal') bg-purple-100 text-purple-800
-                                        @elseif($user->role === 'counselor') bg-blue-100 text-blue-800
-                                        @else bg-green-100 text-green-800
-                                        @endif">
+                                    @php
+                                        $roleClasses = [
+                                            'admin' => 'bg-red-100 text-red-800',
+                                            'principal' => 'bg-purple-100 text-purple-800',
+                                            'counselor' => 'bg-blue-100 text-blue-800',
+                                            'teacher' => 'bg-green-100 text-green-800'
+                                        ];
+                                        $roleClass = $roleClasses[$user->role] ?? 'bg-gray-100 text-gray-800';
+                                    @endphp
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $roleClass }}">
                                         {{ ucfirst($user->role) }}
                                     </span>
                                 </td>
@@ -84,8 +75,10 @@
                                     <div class="text-sm text-gray-900">{{ $user->department }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                        @if($user->is_active) bg-green-100 text-green-800 @else bg-red-100 text-red-800 @endif">
+                                    @php
+                                        $statusClass = $user->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                                    @endphp
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $statusClass }}">
                                         {{ $user->is_active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
