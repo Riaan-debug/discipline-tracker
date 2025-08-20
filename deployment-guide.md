@@ -1,169 +1,72 @@
-# 🚀 Free Production Deployment Guide
+# Deployment Guide - Vercel
 
-## **Option 1: Heroku (Recommended - Easiest)**
+This guide covers deploying the Discipline Tracker application to Vercel.
 
-### **Step 1: Create Heroku Account**
-1. Go to [heroku.com](https://heroku.com)
-2. Sign up for free account
-3. Install Heroku CLI: [devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
+## Prerequisites
 
-### **Step 2: Deploy to Heroku**
-```bash
-# Login to Heroku
-heroku login
+- Vercel account
+- GitHub repository connected to Vercel
+- PostgreSQL database (Vercel Postgres or external)
 
-# Create new app
-heroku create your-discipline-tracker
+## Deployment Steps
 
-# Add PostgreSQL database (free)
-heroku addons:create heroku-postgresql:mini
+### 1. Connect Repository to Vercel
 
-# Set environment variables
-heroku config:set APP_ENV=production
-heroku config:set APP_DEBUG=false
-heroku config:set APP_NAME="Willow Tree Academy Discipline System"
-heroku config:set QUEUE_CONNECTION=database
-heroku config:set SESSION_DRIVER=database
-heroku config:set CACHE_DRIVER=database
+1. Go to [vercel.com](https://vercel.com) and sign in
+2. Click "New Project"
+3. Import your GitHub repository
+4. Select the `discipline-tracker` directory
 
-# Set up email (Mailgun - free)
-heroku addons:create mailgun:starter
-# Or use your existing Gmail setup:
-heroku config:set MAIL_MAILER=smtp
-heroku config:set MAIL_HOST=smtp.gmail.com
-heroku config:set MAIL_PORT=587
-heroku config:set MAIL_USERNAME=test.discipline23@gmail.com
-heroku config:set MAIL_PASSWORD="your-app-password"
-heroku config:set MAIL_ENCRYPTION=tls
-heroku config:set MAIL_FROM_ADDRESS=test.discipline23@gmail.com
-heroku config:set MAIL_FROM_NAME="Willow Tree Academy Discipline System"
+### 2. Configure Environment Variables
 
-# Deploy
-git add .
-git commit -m "Production ready"
-git push heroku main
+Set these environment variables in your Vercel project:
 
-# Run migrations and seed
-heroku run php artisan migrate --force
-heroku run php artisan db:seed --force
-
-# Scale workers (for email processing)
-heroku ps:scale worker=1
 ```
-
-### **Step 3: Test Your App**
-- Visit: `https://your-discipline-tracker.herokuapp.com`
-- Create admin user
-- Test email functionality
-
----
-
-## **Option 2: Railway (Alternative)**
-
-### **Step 1: Create Railway Account**
-1. Go to [railway.app](https://railway.app)
-2. Sign up with GitHub
-3. Get $5 free credit monthly
-
-### **Step 2: Deploy**
-1. Connect your GitHub repository
-2. Railway will auto-detect Laravel
-3. Add PostgreSQL database
-4. Set environment variables
-5. Deploy automatically
-
----
-
-## **Option 3: Render (Alternative)**
-
-### **Step 1: Create Render Account**
-1. Go to [render.com](https://render.com)
-2. Sign up for free account
-
-### **Step 2: Deploy**
-1. Connect GitHub repository
-2. Choose "Web Service"
-3. Add PostgreSQL database
-4. Set environment variables
-5. Deploy
-
----
-
-## **🔧 Environment Variables to Set:**
-
-```bash
 APP_ENV=production
 APP_DEBUG=false
-APP_NAME="Willow Tree Academy Discipline System"
-APP_URL=https://your-app-url.com
-
+APP_KEY=your-laravel-app-key
 DB_CONNECTION=pgsql
-DB_HOST=your-db-host
+DB_HOST=your-postgres-host
 DB_PORT=5432
-DB_DATABASE=your-db-name
-DB_USERNAME=your-db-user
-DB_PASSWORD=your-db-password
-
+DB_DATABASE=your-database-name
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
 QUEUE_CONNECTION=database
-SESSION_DRIVER=database
-CACHE_DRIVER=database
-
-# Email (choose one):
-# Option A: Mailgun (free)
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mailgun.org
-MAIL_PORT=587
-MAIL_USERNAME=your-mailgun-user
-MAIL_PASSWORD=your-mailgun-password
-MAIL_ENCRYPTION=tls
-
-# Option B: Gmail (your current setup)
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+LOG_CHANNEL=stack
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
-MAIL_USERNAME=test.discipline23@gmail.com
-MAIL_PASSWORD=your-app-password
 MAIL_ENCRYPTION=tls
+MAIL_USERNAME=your-email
+MAIL_PASSWORD=your-app-password
+MAIL_FROM_ADDRESS=noreply@school.edu
+MAIL_FROM_NAME=School Discipline Tracker
 ```
 
-## **🎯 Quick Start (Choose One):**
+### 3. Deploy
 
-### **Heroku (Recommended)**
-```bash
-# 1. Install Heroku CLI
-# 2. Run these commands:
-heroku login
-heroku create your-discipline-tracker
-heroku addons:create heroku-postgresql:mini
-git push heroku main
-heroku run php artisan migrate --force
-heroku run php artisan db:seed --force
-heroku ps:scale worker=1
-```
+1. Vercel will automatically detect the Laravel configuration
+2. The `vercel.json` file handles routing and PHP runtime
+3. Deployments happen automatically on git push
 
-### **Railway**
-1. Connect GitHub repo
-2. Add PostgreSQL
-3. Set environment variables
-4. Deploy automatically
+### 4. Post-Deployment
 
-### **Render**
-1. Connect GitHub repo
-2. Add PostgreSQL
-3. Set environment variables
-4. Deploy automatically
+1. Run database migrations: `php artisan migrate`
+2. Set up your database seeders if needed
+3. Configure your domain and SSL
 
-## **✅ What You Get:**
-- ✅ **Free hosting** (forever)
-- ✅ **Free database** (PostgreSQL)
-- ✅ **Free SSL certificate** (HTTPS)
-- ✅ **Free email service** (Mailgun/Gmail)
-- ✅ **Automatic queue worker** (email processing)
-- ✅ **Custom domain** (optional)
+## Notes
 
-## **💰 Total Cost: $0**
+- Vercel uses serverless functions, so long-running processes like queue workers may need alternative solutions
+- File storage should use cloud storage (S3, etc.) rather than local storage
+- Database connections should use connection pooling for better performance
 
-Your app will be completely free to run and maintain! 🎉
+## Support
+
+For issues with Vercel deployment, check the [Vercel documentation](https://vercel.com/docs) and [Laravel deployment guides](https://laravel.com/docs/deployment).
 
 
 
