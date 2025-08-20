@@ -63,3 +63,8 @@ if ($result -eq 0) {
     Write-Host "Failed to install service. Error code: $result" -ForegroundColor Red
     exit 1
 }
+
+
+
+
+

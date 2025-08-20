@@ -164,3 +164,8 @@ heroku ps:scale worker=1
 ## **💰 Total Cost: $0**
 
 Your app will be completely free to run and maintain! 🎉
+
+
+
+
+

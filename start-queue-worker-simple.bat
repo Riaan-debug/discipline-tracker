@@ -10,3 +10,8 @@ php artisan queue:work --sleep=3 --tries=3 --max-time=3600
 echo Worker stopped. Restarting in 5 seconds...
 timeout /t 5 /nobreak >nul
 goto loop
+
+
+
+
+

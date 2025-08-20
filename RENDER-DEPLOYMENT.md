@@ -108,3 +108,8 @@ APP_URL=https://your-custom-domain.com
 ## 🎉 **You're Live!**
 
 Your discipline tracker is now running on Render and ready for your school to use!
+
+
+
+
+

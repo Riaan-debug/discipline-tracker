@@ -86,3 +86,8 @@ Since Vercel doesn't provide databases, you'll need to add one:
 2. Add a free PostgreSQL database
 3. Configure environment variables
 4. Test your app
+
+
+
+
+

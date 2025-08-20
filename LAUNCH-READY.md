@@ -115,3 +115,8 @@ Once you deploy using any of the options above, your discipline tracker will be:
 - ✅ **Ready for production use**
 
 **Choose Heroku (Option 1) for the easiest setup!** 🚀
+
+
+
+
+
