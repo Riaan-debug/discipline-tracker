@@ -9,6 +9,7 @@ README.md
 .env.example
 .env.testing
 .phpunit.result.cache
+/vendor
 Homestead.json
 Homestead.yaml
 auth.json
